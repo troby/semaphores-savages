@@ -1,0 +1,9 @@
+Savages are worker threads that try to fill their bowl from the pot.
+When a savage gets their turn they use Turn.Lock() and check the
+pot to see if it's empty. If it is, a signal is sent to cook to fill
+the pot, and a signal is awaited in return. The cook fills the pot
+and signals the savage to continue. The savage will fill his bowl
+and invoke Turn.Unlock(). A savage thread eats and then exits.
+
+When the savage threads exit a stop signal is sent to cook.
+Cook will then terminate cleanly.
